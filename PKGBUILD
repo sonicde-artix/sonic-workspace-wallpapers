@@ -1,9 +1,9 @@
-# Maintainer: artist for Sonic-DE
+# Maintainer: artist for Artix Linux
 
 pkgname=sonic-workspace-wallpapers
-pkgver=6.6.3
-_dirver=$(echo $pkgver | cut -d. -f1-3)
+pkgver=6.6.5
 pkgrel=1
+_commit="9402eca9b8b38399e24da784a50dc03e51fd4a70"
 pkgdesc='Additional wallpapers for the Sonic Workspace'
 arch=(any)
 url='https://github.com/Sonic-DE/sonic-workspace-wallpapers'
@@ -12,7 +12,9 @@ makedepends=(extra-cmake-modules qt5-base)
 groups=(sonicde)
 conflicts=(plasma-workspace-wallpapers)
 provides=(plasma-workspace-wallpapers)
-source=("$pkgname-$pkgver.tar.gz::${url}/archive/refs/tags/$_dirver.tar.gz")
+replaces=(plasma-workspace-wallpapers)
+makedepends+=(git)
+source=("$pkgname-$pkgver::git+$url.git#commit=$_commit")
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
@@ -24,5 +26,5 @@ package() {
   DESTDIR="$pkgdir" cmake --install build
 }
 
-sha256sums=('0f3f2b853cc0fb2bb0372bb1b255575e79821ccccb3c748db5dca3511f0ff386')
+sha256sums=('e3aaacfadbc5954fa5ed17362d52c4982ee2de44351838021c4a6f93dbe21292')
 
